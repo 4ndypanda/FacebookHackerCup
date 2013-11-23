@@ -1,22 +1,3 @@
-def balanced(s):
-    open, frowny, close, smiley = 0, 0, 0, 0
-    possible = True
-    for i in range(len(s)):
-        if s[i] == '(':
-            open += 1
-            if i > 0 and s[i - 1] == ':':
-                frowny += 1
-        elif s[i] == ')':
-            close += 1
-            if i > 0 and s[i - 1] == ':':
-                smiley += 1
-        if close - smiley > open:
-            return "NO"
-        if close - smiley == open:    
-            open, frowny, close, smiley = 0, 0, 0, 0
-        possible = (open - frowny <= close)
-    return "YES" if possible else "NO"
-    
 def isBalanced(message):
     minOpen = 0
     maxOpen = 0
@@ -44,9 +25,7 @@ def main():
     T = int(input.readline())
     for t in range(T):
         s = input.readline()[:-1]
-        output.write("Case #%d: %s\n" % (t + 1, balanced(s)))
-        if balanced(s) != isBalanced(s):
-            output.write("Difference for Case %d\n" % (t + 1));
+        output.write("Case #%d: %s\n" % (t + 1, isBalanced(s)))
     input.close()
     output.close()
 
