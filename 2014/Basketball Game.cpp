@@ -43,6 +43,12 @@ vector <string> get_players(vector <player> team, int P, int M)
     return current_players;
 }
 
+template <class T> vector <T> concatenate(vector <T> a, vector <T> b)
+{
+    a.insert(a.end(), b.begin(), b.end());
+    return a;
+}
+
 int main()
 {
     int T;
@@ -63,13 +69,12 @@ int main()
         vector <player> first_team, second_team;
         for (int i = 0; i < players.size(); i++) 
             (i % 2 ? second_team : first_team).push_back(players[i]);
-        vector <string> first_players = get_players(first_team, P, M);
-        vector <string> second_players = get_players(second_team, P, M);
-        set <string> current_players(first_players.begin(), first_players.end());
-        current_players.insert(second_players.begin(), second_players.end());
+        vector <string> current_players = concatenate(
+            get_players(first_team, P, M), get_players(second_team, P, M));
+        sort(current_players.begin(), current_players.end());
         printf("Case #%d:", t);
-        for (set <string>::iterator it = current_players.begin(); it != current_players.end(); it++)
-            printf(" %s", it->c_str());
+        for (int i = 0; i < current_players.size(); i++)
+            printf(" %s", current_players[i].c_str());
         printf("\n");
     }
     return 0;
